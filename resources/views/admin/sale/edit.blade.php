@@ -116,9 +116,7 @@
             </div>
         </div>
     </form>
-
-
-
+    
 @endsection
 
 @section('customJs')
