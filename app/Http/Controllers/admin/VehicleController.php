@@ -31,7 +31,7 @@ class VehicleController extends Controller
          $validator     =   Validator::make($request->all(), []);
          $cheques                         =$request->file('cheques');
 
-                  if ($validator->fails()) {
+        if ($validator->fails()) {
             $errors     =   $validator->errors();
 
          } else {

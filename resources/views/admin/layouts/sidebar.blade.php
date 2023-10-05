@@ -18,6 +18,12 @@
 									<p>Dashboard</p>
 								</a>
 							</li>
+                            <li class="nav-item">
+								<a href="{{ route('admin.store')}}" class="nav-link {{ ($layout=='store') ? 'active' : '' }}">
+									<i class="nav-icon  fas fa-store"></i>
+									<p>Store</p>
+								</a>
+							</li>
 
 							<li class="nav-item">
 								<a href="{{ route('admin.user')}}" class="nav-link {{ ($layout=='users') ? 'active' : '' }}">
@@ -25,28 +31,35 @@
 									<p>Users</p>
 								</a>
 							</li>
-                            <li class="nav-item">
-								<a href="{{ route('admin.item')}}" class="nav-link {{ ($layout=='Items') ? 'active' : '' }}">
-									<i class="fas fa-box"></i>
-									<p>Items</p>
-								</a>
-							</li>
+
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link">
+                                  <i class="nav-icon fas fa-cubes"></i>
+                                  <p>
+                                    Inventory
+                                    <i class="fas fa-angle-left right"></i>
+                                  </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.item')}}" class="nav-link {{ ($layout=='Items') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Items</p>
+                                        </a>
+                                    </li>
+
+                                   </ul>
+                         </li>
                             <li class="nav-item">
 								<a href="{{ route('admin.purchase')}}" class="nav-link {{ ($layout=='purchase') ? 'active' : '' }}">
-									<i class="fa fa-shopping-cart"></i>
-									<p>Order</p>
+									<i class="fa fa-cart-plus"></i>
+									<p>Stock In</p>
 								</a>
 							</li>
                             <li class="nav-item">
 								<a href="{{ route('admin.sale')}}" class="nav-link {{ ($layout=='sales') ? 'active' : '' }}">
-									<i class="nav-icon  fas fa-warehouse"></i>
-									<p>Sale</p>
-								</a>
-							</li>
-                            <li class="nav-item">
-								<a href="{{ route('admin.store')}}" class="nav-link {{ ($layout=='store') ? 'active' : '' }}">
-									<i class="nav-icon  fas fa-store"></i>
-									<p>Store</p>
+									<i class="nav-icon  fas fa-cart-plus"></i>
+									<p>Stock Out</p>
 								</a>
 							</li>
 
@@ -62,7 +75,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('admin.vehicle.index')}}" class="nav-link {{ ($layout=='vehicles') ? 'active' : '' }}">
                                           <i class="far fa-circle nav-icon"></i>
-                                          <p>Vehicle</p>
+                                          <p>Vehicle sales </p>
                                         </a>
                                      </li>
                                     <li class="nav-item">
@@ -72,7 +85,7 @@
                                         </a>
                                     </li>
                                    </ul>
-                              </li>
+                         </li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->
