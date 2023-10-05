@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\validator;
+use Illuminate\Support\Facades\Validator;
 use App\Models\{User,Guranter,Hierer,Vechile_Batterys,Vechiles_Model,Vechiles,Vechicle_Colour,Hierer_cheques,Sale_Details,Sale_Headers,Items};
 use Carbon\Carbon;
 
@@ -68,7 +68,7 @@ class SaleController extends Controller
 // this function use in Show Item Data
 
     public function saleView(Request $request, $id){
-       
+
         $sale_details = Sale_Details::where('order_id', $id)->get();
 
         foreach ($sale_details as $value) {

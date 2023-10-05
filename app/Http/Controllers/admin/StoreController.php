@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\validator;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Items;
 use App\Models\Stores;
@@ -128,7 +128,7 @@ class StoreController extends Controller
 
         return redirect()->route('admin.store')->with('success', 'Store updated successfully.');
     }
-    
+
 // this function use to delete data in database
     public function destroy($id){
         Stores::find($id)->delete();
