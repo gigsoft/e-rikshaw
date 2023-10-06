@@ -86,6 +86,29 @@
                                     </li>
                                    </ul>
                          </li>
+                         <li class="nav-item menu-open">
+                            <a href="#" class="nav-link">
+                              <i class="nav-icon fas fa-car"></i>
+                              <p>
+                                Report
+                                <i class="fas fa-angle-left right"></i>
+                              </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.purchaseView')}}" class="nav-link {{ ($layout=='purchase_view') ? 'active' : '' }}">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>Purchase Report</p>
+                                    </a>
+                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.salesView')}}" class="nav-link {{ ($layout=='sales_view') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales Report</p>
+                                    </a>
+                                </li>
+                               </ul>
+                     </li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->

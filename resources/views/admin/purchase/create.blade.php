@@ -53,6 +53,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="storeName">Store Name</label>
+                                <select id="storeName" name="storeName" class="form-control" required>
+                                    <option value="">Select Store</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-header">
                         <h3 class="card-title"><strong>Items</strong></h3>
                     </div>
@@ -119,7 +132,7 @@
             calculateTotal($(this));
         });
 
-    
+
         // Function to calculate the total
         function calculateTotal(inputField) {
             var $row = inputField.closest('tr');

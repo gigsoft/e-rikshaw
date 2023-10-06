@@ -13,6 +13,7 @@ class Sale_Headers extends Model
         'vehicle_id',
         'supplier_name',
         'supplier_contact_no',
+        'store_id',
         'date',
         'amount',
         'tex_amount',

@@ -18,6 +18,7 @@ class CreateSaleHeaderTable extends Migration
             $table->integer('vehicle_id');
             $table->string('supplier_name');
             $table->string('supplier_contact_no');
+            $table->integer('store_id');
             $table->date('date');
             $table->decimal('amount', 10, 2); // Use 'decimal' for precise currency values
             $table->decimal('tex_amount', 10, 2); // Use 'decimal' for precise currency values

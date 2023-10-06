@@ -21,5 +21,18 @@ class Stores extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function purchase_headers()
+    {
+        return $this->hasOne(Purchase_Headers::class, 'id', 'user_id');
+    }
+    public function purchase_details()
+    {
+        return $this->hasOne(Purchase_Details::class, 'id', 'user_id');
+    }
+    
 
+    public function sale_headers()
+    {
+        return $this->hasOne(Sale_Headers::class, 'id', 'user_id');
+    }
 }

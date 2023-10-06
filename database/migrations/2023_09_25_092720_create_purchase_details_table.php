@@ -17,6 +17,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->id();
             $table->integer('order_id');
             $table->integer('item_id');
+            
             $table->integer('quantity');
             $table->decimal('price', 10, 2); // Use 'decimal' for precise currency values
             $table->decimal('tax', 10, 2); // Use 'decimal' for precise currency values

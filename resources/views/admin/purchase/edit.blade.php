@@ -6,7 +6,7 @@
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Edit Purchase Details</h1>
+                    <h1>Edit Order Details</h1>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{route('admin.purchase')}}" class="btn btn-primary">Back</a>
@@ -50,6 +50,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="storeName">Store Name</label>
+                                <select id="storeName" name="storeName" class="form-control" required>
+                                    <option value="">Select Store</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}" {{ $store->id == $purchaseHeader->store_id ? 'selected' : '' }}>{{ $store->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Populate your table with purchase details for editing -->
                     <div class="card-header">
@@ -63,12 +76,14 @@
                                    <th>Qty</th>
                                    <th>Price</th>
                                    <th>Total</th>
+                                   <th>status</th>
                                    <th></th>
                                 </tr>
                              </thead>
                              <tbody>
                             <!-- Populate table rows with existing purchase details for editing -->
                             @foreach($purchaseDetails as $key => $detail)
+                            {{-- <input type="hidden" name="purchaseDetailsId" value="{{ $detail->id }}"> --}}
                                 <tr>
                                     <td>
                                         <select name="invoice[{{ $key }}][item]" class="form-select form-control selected_item" required>
@@ -89,6 +104,14 @@
                                     <td>
                                         <input type="text" name="invoice[{{ $key }}][total]" class="form-control required invoice_value invoice-item" required value="{{ $detail->total_price }}">
                                     </td>
+
+                                        <td>
+                                            <select name="invoice[{{ $key }}][status]" class="form-select form-control selected_item" required>
+                                                <option value="">Select status</option>
+                                                <option value="1" {{ $detail->status == 1 ? 'selected' : '' }}>Received</option>
+                                                <option value="0" {{ $detail->status == 0 ? 'selected' : '' }}>Pending</option>
+                                            </select>
+                                        </td>
                                     <td>
                                         <a href="javascript:void(0)" data-mode="remove" class="btn btn-danger remove-invoice-value"><i class="fa fa-minus-circle"></i> Remove</a>
                                     </td>
@@ -173,6 +196,28 @@
 
     // Calculate and display total price when the document is ready
     updateTotalPrice();
+    // Update the database when the status changes
+        $(document).on('change', '.invoice-status', function() {
+    var $row = $(this).closest('tr');
+    var status = $(this).val();
+    var invoiceId = $row.find('select[name^="invoice["][name$="][item]"]').val();
+    $.ajax({
+        type: 'POST',
+        url: '/purchase/update/' + invoiceId, // Use your existing route for updating purchases
+        data: {
+            _token: $('input[name="_token"]').val(), // Include the CSRF token
+            _method: 'POST', // Specify the HTTP method (PUT or POST) based on your Laravel route setup
+            status: status
+        },
+        success: function(response) {
+            // Handle success (e.g., show a success message)
+        },
+        error: function(error) {
+            // Handle error (e.g., show an error message)
+        }
+    });
+       });
+
    });
 
 

@@ -11,6 +11,7 @@ class Purchase_Details extends Model
     protected $fillable = [
         'order_id',
         'item_id',
+
         'quantity',
         'price',
         'tax',
@@ -25,6 +26,8 @@ class Purchase_Details extends Model
         return $this->hasOne(Items::class, 'item_id');
     }
 
-
-
+    public function stores()
+    {
+        return $this->belongsTo(Stores::class, 'store_id');
+    }
 }

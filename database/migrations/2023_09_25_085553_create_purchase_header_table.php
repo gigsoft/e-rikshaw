@@ -18,6 +18,7 @@ class CreatePurchaseHeaderTable extends Migration
             $table->integer('vehicle_id');
             $table->integer('supplier_name');
             $table->decimal('supplier_contact_no');
+            $table->integer('store_id');
             $table->date('date');
             $table->decimal('amount', 10, 2); // Use 'decimal' for precise currency values
             $table->decimal('tex_amount', 10, 2); // Use 'decimal' for precise currency values

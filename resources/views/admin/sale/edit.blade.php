@@ -50,6 +50,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="storeName">Store Name</label>
+                                <select id="storeName" name="storeName" class="form-control" required>
+                                    <option value="">Select Store</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}" {{ $store->id == $saleHeader->store_id ? 'selected' : '' }}>{{ $store->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!-- Populate your table with purchase details for editing -->
                     <div class="card-header">
@@ -116,7 +130,7 @@
             </div>
         </div>
     </form>
-    
+
 @endsection
 
 @section('customJs')

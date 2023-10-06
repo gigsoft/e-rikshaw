@@ -13,6 +13,7 @@ class Purchase_Headers extends Model
         'vehicle_id',
         'supplier_name',
         'supplier_contact_no',
+        'store_id',
         'date',
         'amount',
         'tex_amount',
@@ -35,4 +36,8 @@ class Purchase_Headers extends Model
         return $this->belongsTo(Vechiles_Model::class, 'vehicle_id');
     }
 
+    public function stores()
+    {
+        return $this->belongsTo(Stores::class, 'store_id');
+    }
 }

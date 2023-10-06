@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Models\{User,Guranter,Hierer,Vechile_Batterys,Vechiles_Model,Vechiles,Vechicle_Colour,Hierer_cheques,Purchase_Details,Purchase_Headers,Items};
+use App\Models\{User,Guranter,Hierer,Vechile_Batterys,Vechiles_Model,Vechiles,Vechicle_Colour,Hierer_cheques,Purchase_Details,Purchase_Headers,Items,Stores};
 use Carbon\Carbon;
 
 
@@ -29,7 +29,8 @@ class PurchaseController extends Controller
     public function create(){
         $item                         = Items::get();
         $vehicle_models               = Vechiles_Model::get();
-        return view('admin.purchase.create',compact('vehicle_models','item'));
+        $stores                        = Stores::get();
+        return view('admin.purchase.create',compact('vehicle_models','item','stores'));
     }
 
 // this function use Data Store in Database
@@ -46,6 +47,7 @@ class PurchaseController extends Controller
                $purchaseHeader['supplier_name']        = $request->input('supplier_name');
                $purchaseHeader['supplier_contact_no']  = $request->input('supplier_contact_no');
                $purchaseHeader['total_amount']         = $request->input('grand_total');
+               $purchaseHeader['store_id']            = $request->input('storeName');
                $create                                 = Purchase_Headers::create($purchaseHeader);
                $numRows                                = $request->input('invoice');
 
@@ -55,6 +57,7 @@ class PurchaseController extends Controller
                         'item_id'            => $value['item'],
                         'quantity'           => $value['qty'],
                         'price'              => $value['price'],
+
                         'total_price'        => $value['qty'] * $value['price'],
                     ];
                     // Create Purchase_Details records
@@ -92,12 +95,12 @@ class PurchaseController extends Controller
         $purchaseHeader        = Purchase_Headers::find($id);
         $item                  = Items::get();
         $vehicle_models        = Vechiles_Model::get();
-
+        $stores                        = Stores::get();
         if (!$purchaseHeader) {
             return redirect()->route('admin.purchase')->with('error', 'Purchase record not found.');
         }
         $purchaseDetails       = Purchase_Details::where('order_id', $id)->get();
-        return view('admin.purchase.edit', compact('purchaseHeader', 'item', 'vehicle_models', 'purchaseDetails'));
+        return view('admin.purchase.edit', compact('purchaseHeader', 'item','stores', 'vehicle_models', 'purchaseDetails'));
     }
 
     public function update(Request $request, $id) {
@@ -116,27 +119,43 @@ class PurchaseController extends Controller
             $purchaseHeader['supplier_name']        = $request->input('supplier_name');
             $purchaseHeader['supplier_contact_no']  = $request->input('supplier_contact_no');
             $purchaseHeader['total_amount']         = $request->input('grand_total');
+            $purchaseHeader['store_id']            = $request->input('storeName');
             $purchaseHeader->save();
 
             // Delete existing purchase details related to this order
-            Purchase_Details::where('order_id', $id)->delete();
+             Purchase_Details::where('order_id', $id)->delete();
 
             // Insert updated purchase details
             $numRows                                = $request->input('invoice');
             foreach ($numRows as $key => $value) {
+
+                // echo "<pre>";
+                // print_r($value);die;
                 $detailData = [
                     'order_id'           => $id,
                     'item_id'            => $value['item'],
                     'quantity'           => $value['qty'],
                     'price'              => $value['price'],
+                    'status'              => $value['status'],
                     'total_price'        => $value['qty'] * $value['price'],
                 ];
                 // Create Purchase_Details records
                 Purchase_Details::create($detailData);
             }
-        }
+            return redirect()->route('admin.purchase')->with('success', 'Purchase record updated successfully.');
+        //     if (is_object($value)) {
+        //        if ($value->status == 0) {
+        //         $value->status_text = 'Pending';
+        //     } elseif ($value->status == 1) {
+        //         $value->status_text = 'Received';
+        //     } else {
+        //         // Handle other status values if necessary
+        //         $value->status_text = 'Unknown Status';
+        //     }
+        // }
+    }
 
-        return redirect()->route('admin.purchase')->with('success', 'Purchase record updated successfully.');
+
     }
 
 

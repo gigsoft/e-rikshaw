@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\SaleController;
+use App\Http\Controllers\Admin\ReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,15 @@ Route::group (['prefix' => 'admin'],function(){
        Route::get('sale/view/{id}',[SaleController::class,'saleView'])->name('admin.sale.view');
        Route::get('sale/edit/{id}',[SaleController::class,'edit'])->name('admin.sale.edit');
        Route::post('sale/update/{id}',[SaleController::class,'update'])->name('admin.sale.update');
+
+
+
+
+
+//sales report
+     Route::get('purchase/report',[ReportController::class,'purchaseIndex'])->name('admin.purchaseView');
+     Route::get('sales/report',[ReportController::class,'salesIndex'])->name('admin.salesView');
+
 
     });
 
